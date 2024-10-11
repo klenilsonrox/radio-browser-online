@@ -24,6 +24,7 @@ const Header = () => {
 
   return (
     <>
+   
     <button className="absolute right-1 top-2 lg:hidden" onClick={() => setOpenMenu(!menu)}>
         <IoMenu size={40} className="text-[#1267FC]" />
       </button>
