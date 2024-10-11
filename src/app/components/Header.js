@@ -6,7 +6,7 @@ import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import Skeleton from './Skeleton';
 import Link from 'next/link';
-import { FaHeart } from "react-icons/fa"; // Importando o ícone de coração
+import { FaHeart } from "react-icons/fa";
 
 const Header = () => {
   const { radios, offSet, nextPage, previousPage, loading, addFavorita, favoritas, filter, setFilter, country, setCountry, countries } = useRadio();
@@ -25,10 +25,10 @@ const Header = () => {
   return (
     <>
    
-    <button className="absolute right-1 top-2 lg:hidden" onClick={() => setOpenMenu(!menu)}>
+    <button className="fixed right-1 top-2 lg:hidden z-30" onClick={() => setOpenMenu(!menu)}>
         <IoMenu size={40} className="text-[#1267FC]" />
       </button>
-    <div className="w-full max-w-[244px] bg-[#1E1E21] relative">
+    <div className="w-full lg:max-w-[244px] bg-[#1E1E21] relative">
       <button className="absolute right-1 top-2 hidden lg:block" onClick={() => setOpenMenu(!menu)}>
         <IoMenu size={40} className="text-[#1267FC]" />
       </button>
@@ -40,7 +40,7 @@ const Header = () => {
           placeholder="Search here"
         />
 
-        {/* Filtro por categoria */}
+   
         <select 
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
@@ -54,7 +54,7 @@ const Header = () => {
           <option value="classical">Clássica</option>
         </select>
 
-        {/* Filtro por país */}
+    
         <select 
           value={country}
           onChange={(e) => setCountry(e.target.value)}
@@ -70,7 +70,7 @@ const Header = () => {
       {loading && <Skeleton />}
       <ul className="mt-6 flex flex-col gap-3">
         {radios && radios.map((radio,index) => {
-          const isFavorited = favoritas.some(fav => fav.stationuuid === radio.stationuuid); // Verifica se a rádio já é favorita
+          const isFavorited = favoritas.some(fav => fav.stationuuid === radio.stationuuid); 
           
           return (
             <li className="bg-[#4D4D56] mx-2 h-[48px] rounded-[10px] flex items-center text-white px-4 cursor-pointer hover:bg-[#464650] transition-all truncate justify-between" key={index}>
@@ -83,7 +83,7 @@ const Header = () => {
                     addFavorita(radio); // Desfavoritar a rádio
                   }}
                 >
-                  <FaHeart /> {/* Exibe o coração preenchido */}
+                  <FaHeart />
                 </button>
               ) : (
                 <button 
@@ -93,7 +93,7 @@ const Header = () => {
                     addFavorita(radio); // Favoritar a rádio
                   }}
                 >
-                  <FaHeart className="opacity-50" /> {/* Exibe o coração vazio ou com opacidade */}
+                  <FaHeart className="opacity-50" /> 
                 </button>
               )}
             </li>

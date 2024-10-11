@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "My Radio",
+  title: "Rádio Browser online",
   description: "as melhores musicas vc só encontra aqui",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       <div className="flex bg-[#1E1E21] min-h-screen">
+       <div className="flex bg-[#1E1E21] min-h-screen flex-col lg:flex-row">
         <RadioProvider>
         <Header />
         {children}

@@ -1,23 +1,24 @@
 'use client';
-import React from "react";
+import React from 'react';
 
 export const RadioContext = React.createContext({});
 
-const RadioProvider = ({children}) => {
+const RadioProvider = ({ children }) => {
     const [radios, setRadios] = React.useState([]);
     const [offSet, setOffSet] = React.useState(1);
     const [loading, setLoading] = React.useState(true);
     const [favoritas, setFavoritas] = React.useState([]);
-    const [filter, setFilter] = React.useState(""); // Filtro por categoria
-    const [country, setCountry] = React.useState(""); // Filtro por país
+    const [filter, setFilter] = React.useState(''); // Filtro por categoria
+    const [country, setCountry] = React.useState(''); // Filtro por país
     const [countries, setCountries] = React.useState([]); // Lista de países
+    const [playingUrl, setPlayingUrl] = React.useState(null); // URL da rádio que está tocando
+    const [audio, setAudio] = React.useState(null); // Objeto de áudio
 
     React.useEffect(() => {
         const savedFavorites = JSON.parse(localStorage.getItem('favoritas')) || [];
         setFavoritas(savedFavorites);
-    }, []); // Executa apenas uma vez ao montar o componente
+    }, []);
 
-    // Requisição para buscar a lista de países
     const getCountries = async () => {
         try {
             const response = await fetch('https://de1.api.radio-browser.info/json/countries');
@@ -30,13 +31,17 @@ const RadioProvider = ({children}) => {
 
     React.useEffect(() => {
         getCountries();
-    }, []); // Carrega a lista de países apenas uma vez
+    }, []);
 
-    function addFavorita(radio) {
+    const addFavorita = (radio) => {
         const isFavorited = favoritas.some(fav => fav.stationuuid === radio.stationuuid);
         let updatedFavorites;
 
         if (isFavorited) {
+            if (playingUrl === radio.url_resolved && audio) {
+                audio.pause(); // Pausar o áudio se estiver tocando
+                setPlayingUrl(null);
+            }
             updatedFavorites = favoritas.filter(fav => fav.stationuuid !== radio.stationuuid);
         } else {
             updatedFavorites = [...favoritas, radio];
@@ -44,16 +49,36 @@ const RadioProvider = ({children}) => {
 
         setFavoritas(updatedFavorites);
         localStorage.setItem('favoritas', JSON.stringify(updatedFavorites));
-    }
+    };
+
+    const handlePlay = (url) => {
+        if (audio) {
+            audio.pause();
+        }
+
+        if (url === playingUrl) {
+            setPlayingUrl(null);
+            return;
+        }
+
+        const newAudio = new Audio(url);
+        newAudio.play();
+        setAudio(newAudio);
+        setPlayingUrl(url);
+
+        newAudio.onended = () => {
+            setPlayingUrl(null);
+        };
+    };
 
     const getRadios = async () => {
         try {
             let url = `https://de1.api.radio-browser.info/json/stations/search?limit=10&offset=${offSet}`;
             if (filter) {
-                url += `&tag=${filter}`; // Adiciona o filtro por categoria à URL
+                url += `&tag=${filter}`;
             }
             if (country) {
-                url += `&country=${encodeURIComponent(country)}`; // Adiciona o filtro por país à URL
+                url += `&country=${encodeURIComponent(country)}`;
             }
             const response = await fetch(url);
             const data = await response.json();
@@ -68,20 +93,37 @@ const RadioProvider = ({children}) => {
 
     React.useEffect(() => {
         getRadios();
-    }, [offSet, filter, country]); // Atualiza quando o offset, o filtro ou o país mudam
+    }, [offSet, filter, country]);
 
-    function nextPage() {
+    const nextPage = () => {
         setOffSet(offSet + 1);
-    }
+    };
 
-    function previousPage() {
+    const previousPage = () => {
         if (offSet > 1) {
             setOffSet(offSet - 1);
         }
-    }
+    };
 
     return (
-        <RadioContext.Provider value={{radios, nextPage, previousPage, offSet, loading, favoritas, addFavorita, filter, setFilter, country, setCountry, countries}}>
+        <RadioContext.Provider
+            value={{
+                radios,
+                nextPage,
+                previousPage,
+                offSet,
+                loading,
+                favoritas,
+                addFavorita,
+                filter,
+                setFilter,
+                country,
+                setCountry,
+                countries,
+                handlePlay,
+                playingUrl,
+            }}
+        >
             {children}
         </RadioContext.Provider>
     );
