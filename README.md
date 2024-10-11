@@ -13,7 +13,8 @@ O projeto do Radio Browser é uma aplicação que consome a API pública do Radi
 Next.js: Para construção de interfaces interativas. <br/>
 Tailwind CSS: Para estilização responsiva e design moderno.
 
-
+## instruçoes instalação
+npm install
 
 ## 🔗 Links
 Projeto online > [aqui](https://radio-browser-online.vercel.app) <br />
