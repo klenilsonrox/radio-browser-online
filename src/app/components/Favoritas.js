@@ -15,7 +15,7 @@ const Favoritas = () => {
         <div>
             <h1 className="text-2xl text-white text-center mb-2">Radio Browser</h1>
             <section>
-                <img src="public/images/screenshoot.png" alt="" />
+                <img src="./public/images/screenshoot.png" alt="" />
                 <div className="flex items-center justify-between">
                     <p className="uppercase text-white">Favorites Radios</p>
                     <form action="">
