@@ -5,5 +5,5 @@ O projeto do Radio Browser é uma aplicação que consome a API pública do Radi
 
 ## Screenshots
 
-<img ="https://ibb.co/dbmVX4g" alt="screenshot desktop" />
+
 
