@@ -16,8 +16,6 @@ Tailwind CSS: Para estilização responsiva e design moderno.
 
 
 ## 🔗 Links
-Projeto online > [!clique aqui](https://radio-browser-online.vercel.app)
-repositório > [!aqui](https://github.com/klenilsonrox/radio-browser-online)
-
-
-Challenge by [!clique aqui](https://coodesh.com/)
+Projeto online > [aqui](https://radio-browser-online.vercel.app) <br />
+repositório > [aqui](https://github.com/klenilsonrox/radio-browser-online) <br />
+Challenge by [Coodesh](https://coodesh.com/)
