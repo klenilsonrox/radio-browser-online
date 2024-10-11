@@ -10,7 +10,7 @@ O projeto do Radio Browser é uma aplicação que consome a API pública do Radi
 
 ## Tecnologias Utilizadas:
 
-Next.js: Para construção de interfaces interativas.
+Next.js: Para construção de interfaces interativas. <br/>
 Tailwind CSS: Para estilização responsiva e design moderno.
 
 ## 🔗 Links
