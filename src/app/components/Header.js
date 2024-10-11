@@ -74,7 +74,7 @@ const Header = () => {
           
           return (
             <li className="bg-[#4D4D56] mx-2 h-[48px] rounded-[10px] flex items-center text-white px-4 cursor-pointer hover:bg-[#464650] transition-all truncate justify-between" key={index}>
-              <Link href={`/radios/${radio.changeuuid}`} className="max-w-200px truncate">{radio.name}</Link>
+              <p className="max-w-200px truncate">{radio.name}</p>
               {isFavorited ? (
                 <button 
                   className="text-red-500" 
